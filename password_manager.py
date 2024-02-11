@@ -1,8 +1,9 @@
-import json, getpass, os, sys
+import json, getpass, os, sys, pyfiglet, pyperclip
 
 
 def password_manager():
-    print("Welcome to Prestons Password Solutions")
+    welcome = pyfiglet.figlet_format("Welcome to Preston's Password Solutions")
+    print(welcome)
     while True:    
         
         print("\n")
@@ -83,7 +84,31 @@ def password_manager():
 
                     elif user_choice2 == '3':
                         #update login
-                        print('block')
+                        print("1.Update website")
+                        print("2.Update username")
+                        print("3.Update note")
+
+                        user_choice3 = input("CHoose an option from above: ")
+
+                        if user_choice3 == '1':
+                            entered_website = input("Enter the name of the website for which you want to update login information for: ")
+                            new_website = input("Enter the new website: ")
+
+                            update_website(entered_website, new_website)
+
+                        elif user_choice == '2': 
+                            entered_website = input("Enter the name of the website for which you want to update login information for: ")
+                            new_username = input("Enter your new username: ")
+
+                            update_username(entered_website, new_username)
+
+                        elif user_choice3 == '3':
+                            entered_website = input("Enter the name of the website for which you want to update login information for: ")
+                            new_note = input("Enter your new note: ")
+
+                            update_note(entered_website, new_note)
+
+
 
                     elif user_choice2 == '4':
                         #delete login
@@ -138,7 +163,7 @@ def login(entered_password):
 def create_login(website, username, note):
     if not os.path.exists('logins.json'):
         #if logins.json doesnt exit init it with empty list
-        logins = []
+        login_arr = []
 
     else:
         #load logins from logins.json
@@ -148,7 +173,7 @@ def create_login(website, username, note):
 
         except json.JSONDecodeError:
             #handle empty logins,json or invalid json
-            logins = []
+            login_arr = []
 
 
     login_entry = {'website': website, 'username': username, 'note': note}
@@ -160,11 +185,75 @@ def create_login(website, username, note):
 
 
 
-#def find_login_by_website():
+def find_login_by_website(entered_website):
+    #check is logins.json exists
+    if not os.path.exists('logins.json'):
+        return None
+
+    try:
+        with open('logins.json', 'r') as file:
+
+            login_arr = json.load(file)
+
+    except json.JSONDecodeError:
+        login_arr = []
+
+    #loop through logins to find login info mathcing website
+    for entry in login_arr:
+        if entry['website'] == entered_website:
+            print("Website: ", entry['website'])
+            print("Username: ", entry['username'])
+            print("Note: ", entry['note'])
+    
+    file.close()
+
+
+def find_login_by_username(entered_username):
+    #check if logins.json exists
+    if not os.path.exists('logins.json'):
+        return None
+
+    try:
+        with open('logins.json', 'r') as file:
+
+            login_arr = json.load(file)
+
+    except json.JSONDecodeError:
+        login_arr = []
+
+    #loop through logins to find login info mathcing website
+    for entry in login_arr:
+        if entry['username'] == entered_username:
+            print("Website: ", entry['website'])
+            print("Username: ", entry['username'])
+            print("Note: ", entry['note'])
+
+    file.close()
 
 
 
-#def find_login_by_username():
+
+def update_website(entered_website, new_website):
+    with open('logins.json', 'r') as file:
+        login_arr = json.load(file)
+
+    for entry in loginarr:
+        if entry['website'] == entered_website:
+            login_arr[entry]['website'] = new_website
+
+    with open('logins.json', 'w') as file:
+        json.dump(login_arr, file)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
