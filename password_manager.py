@@ -112,7 +112,14 @@ def password_manager():
 
                     elif user_choice2 == '4':
                         entered_website = input("Enter the name of the website whos login information you want to delete: ")
-                        delete_login(entered_website)
+                        u_sure = f"Are you sure you want to delete {entered_website} ?"
+                        print(u_sure)
+                        to_delete = input("y/n: ")
+                        if to_delete =='y':
+                            delete_login(entered_website)
+                        elif to_delete =='n':
+                            print("Login delete aborted")
+                            break
 
                     elif user_choice2 == '5':
                         break
