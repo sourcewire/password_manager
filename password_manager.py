@@ -72,12 +72,12 @@ def password_manager():
                             
                             find_login_by_website(entered_website)
 
-                        elif user_choice == '2':
+                        elif user_choice3 == '2':
                             entered_username = input("Enter the username you want to search for log in information for: ")
 
                             find_login_by_username(entered_username)
 
-                        elif user_choice == '3':
+                        elif user_choice3 == '3':
                             sys.exit()
 
 
@@ -111,8 +111,8 @@ def password_manager():
 
 
                     elif user_choice2 == '4':
-                        #delete login
-                        print('block')
+                        entered_website = input("Enter the name of the website whos login information you want to delete: ")
+                        delete_login(entered_website)
 
                     elif user_choice2 == '5':
                         break
@@ -281,7 +281,24 @@ def update_note(entered_website, new_note):
     print("Note updated!")
 
 
+#delete login
+def delete_login(entered_website):
+    with open('logins.json', 'r') as file:
+        login_arr = json.load(file)
 
+    #use enumerate to get both index and entry
+    for index, entry in enumerate(login_arr):
+        if entry['website'] == entered_website:
+            login_arr[index]['website'] = 'NULL'
+            login_arr[index]['username'] = 'NULL'
+            login_arr[index]['note'] = 'NULL'
+
+
+    with open('logins.json', 'w') as file:
+        json.dump(login_arr, file)
+
+    file.close()
+    print("Login deleted")
 
 
 
