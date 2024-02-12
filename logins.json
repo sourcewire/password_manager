@@ -1,12 +1,1 @@
-[
-    {
-        "website": "proton.me",
-        "username": "james bond",
-        "note": ""
-    },
-    {
-        "website": "ex website",
-        "username": "ex username",
-        "note": "example"
-    }
-]
+[{"website": "proton.me", "username": "james bond", "note": ""}, {"website": "cooliosite.com", "username": "very cool username", "note": "coolio note"}]

@@ -96,7 +96,7 @@ def password_manager():
 
                             update_website(entered_website, new_website)
 
-                        elif user_choice == '2': 
+                        elif user_choice3 == '2': 
                             entered_website = input("Enter the name of the website for which you want to update login information for: ")
                             new_username = input("Enter your new username: ")
 
@@ -237,16 +237,48 @@ def update_website(entered_website, new_website):
     with open('logins.json', 'r') as file:
         login_arr = json.load(file)
 
-    for entry in loginarr:
+    #use enumerate to get both index and entry
+    for index, entry in enumerate(login_arr):
         if entry['website'] == entered_website:
-            login_arr[entry]['website'] = new_website
+            login_arr[index]['website'] = new_website
 
     with open('logins.json', 'w') as file:
         json.dump(login_arr, file)
 
+    file.close()
+    print("Website updated!")
 
 
 
+def update_username(entered_website, new_username):
+    with open('logins.json', 'r') as file:
+        login_arr = json.load(file)
+
+    for index, entry in enumerate(login_arr):
+        if entry['website'] == entered_website:
+            login_arr[index]['username'] = new_username
+
+    with open('logins.json', 'w') as file:
+        json.dump(login_arr, file)
+
+    file.close()
+    print("Username updated!")
+
+
+
+def update_note(entered_website, new_note):
+    with open('logins.json', 'r') as file:
+        login_arr = json.load(file)
+
+    for index, entry in enumerate(login_arr):
+        if entry['website'] == entered_website:
+            login_arr[index]['note'] = new_note
+
+    with open('logins.json', 'w') as file:
+        json.dump(login_arr, file)
+
+    file.close()
+    print("Note updated!")
 
 
 
