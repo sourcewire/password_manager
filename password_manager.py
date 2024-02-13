@@ -60,53 +60,60 @@ def password_manager():
                         print("Login added sucessfully")
 
                     elif user_choice2 == '2':
-                        #search logins
-                        print("1.Search by website name")
-                        print("2.Search by username")
-                        print("3.Exit")
+                        while True:
+                            #search logins
+                            print("1.Search by website name")
+                            print("2.Search by username")
+                            print("3.Exit")
 
-                        user_choice3 = input("Choose an option from above: ")
+                            user_choice3 = input("Choose an option from above: ")
 
-                        if user_choice3 == '1':
-                            entered_website = input("Enter the name of the website you want to find login information for: ")
+                            if user_choice3 == '1':
+                                entered_website = input("Enter the name of the website you want to find login information for: ")
                             
-                            find_login_by_website(entered_website)
+                                find_login_by_website(entered_website)
+                                break
+                            elif user_choice3 == '2':
+                                entered_username = input("Enter the username you want to search for log in information for: ")
 
-                        elif user_choice3 == '2':
-                            entered_username = input("Enter the username you want to search for log in information for: ")
-
-                            find_login_by_username(entered_username)
-
-                        elif user_choice3 == '3':
-                            sys.exit()
+                                find_login_by_username(entered_username)
+                                break
+                            elif user_choice3 == '3':
+                                #sys.exit()
+                                break
 
 
-
+                    
                     elif user_choice2 == '3':
-                        #update login
-                        print("1.Update website")
-                        print("2.Update username")
-                        print("3.Update note")
+                        while True:
+                            #update login
+                            print("1.Update website")
+                            print("2.Update username")
+                            print("3.Update note")
+                            print("4.Exit")
 
-                        user_choice3 = input("CHoose an option from above: ")
+                            user_choice3 = input("CHoose an option from above: ")
 
-                        if user_choice3 == '1':
-                            entered_website = input("Enter the name of the website for which you want to update login information for: ")
-                            new_website = input("Enter the new website: ")
+                            if user_choice3 == '1':
+                                entered_website = input("Enter the name of the website for which you want to update login information for: ")
+                                new_website = input("Enter the new website: ")
 
-                            update_website(entered_website, new_website)
+                                update_website(entered_website, new_website)
 
-                        elif user_choice3 == '2': 
-                            entered_website = input("Enter the name of the website for which you want to update login information for: ")
-                            new_username = input("Enter your new username: ")
+                            elif user_choice3 == '2': 
+                                entered_website = input("Enter the name of the website for which you want to update login information for: ")
+                                new_username = input("Enter your new username: ")
 
-                            update_username(entered_website, new_username)
+                                update_username(entered_website, new_username)
 
-                        elif user_choice3 == '3':
-                            entered_website = input("Enter the name of the website for which you want to update login information for: ")
-                            new_note = input("Enter your new note: ")
+                            elif user_choice3 == '3':
+                                entered_website = input("Enter the name of the website for which you want to update login information for: ")
+                                new_note = input("Enter your new note: ")
 
-                            update_note(entered_website, new_note)
+                                update_note(entered_website, new_note)
+
+                            elif user_choice3 == '4':
+                                break
 
 
 
