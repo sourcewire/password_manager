@@ -4,13 +4,27 @@ import json, getpass, os, sys, pyfiglet, pyperclip
 def password_manager():
     welcome = pyfiglet.figlet_format("Welcome to Preston's Password Solutions")
     print(welcome)
+
+    print('\n')
+    
+    print('**************************************************************************')
+    print('*                            WARNING!                                    *')
+    print('*                                                                        *')
+    print('* This software is an experiment and should NOT be considered secure. Do *')
+    print('* NOT use this software with ANY expectation that it is a secure OR      *')
+    print('* private application for storing your passwords or other sensitive      *')
+    print('* information.                                                           *')
+    print('*                                                                        *')
+    print('**************************************************************************')
+
     while True:    
         
         print("\n")
 
         print("1.Register")
         print("2.Login")
-        print("3.Exit")
+        print("3.More Information")
+        print("4.Exit")
 
         user_choice = input("Choose an option from above: ")
 
@@ -130,8 +144,27 @@ def password_manager():
 
                     elif user_choice2 == '5':
                         break
-
         elif user_choice == '3':
+            while(True):
+                #show user more information
+                print('\n')
+                print('**************************************************************************')
+                print("* - This software is a password manager that stores your passwords       *")
+                print("*   locally on your machine in a json file. Your passwords are generated *")
+                print('*   by a microservice, encrypted, sent back to your machine, decrypted,  *')
+                print("*   and stored on your machine with your other login information.        *")
+                print('*                                                                        *')
+                print('* - Login information you can save include website name, username,       *')
+                print('*   password, and an optional note.                                      *')
+                print('*                                                                        *')
+                print('* - Login functionality you can perform with this program is creating    *')
+                print('*   an account, creating a login, updating a login, searching for        *')
+                print('*   logins, and deleteing a login.                                       *')
+                print('**************************************************************************')
+                ex = input("Enter 'e' to exit: ")
+                if ex == 'e':
+                    break
+        elif user_choice == '4':
             #exit
             break
 
