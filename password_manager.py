@@ -8,10 +8,10 @@ def password_manager():
     print('\n')
     
     print('**************************************************************************')
-    print('*                            WARNING!                                    *')
+    print('*                                WARNING!                                *')
     print('*                                                                        *')
-    print('* This software is an experiment and should NOT be considered secure. Do *')
-    print('* NOT use this software with ANY expectation that it is a secure OR      *')
+    print('* This software is experimental and should NOT be considered secure. Do  *')
+    print("* NOT use this software with ANY expectation that it's a secure OR       *")
     print('* private application for storing your passwords or other sensitive      *')
     print('* information.                                                           *')
     print('*                                                                        *')
@@ -24,7 +24,8 @@ def password_manager():
         print("1.Register")
         print("2.Login")
         print("3.More Information")
-        print("4.Exit")
+        print('4.Help')
+        print("5.Exit")
 
         user_choice = input("Choose an option from above: ")
 
@@ -149,6 +150,8 @@ def password_manager():
                 #show user more information
                 print('\n')
                 print('**************************************************************************')
+                print('*                        More Information                                *')
+                print('*                                                                        *')
                 print("* - This software is a password manager that stores your passwords       *")
                 print("*   locally on your machine in a json file. Your passwords are generated *")
                 print('*   by a microservice, encrypted, sent back to your machine, decrypted,  *')
@@ -160,11 +163,33 @@ def password_manager():
                 print('* - Login functionality you can perform with this program is creating    *')
                 print('*   an account, creating a login, updating a login, searching for        *')
                 print('*   logins, and deleteing a login.                                       *')
+                print('*                                                                        *')
                 print('**************************************************************************')
-                ex = input("Enter 'e' to exit: ")
+                ex = input('Enter "e" to exit: ')
                 if ex == 'e':
                     break
+
+
+
         elif user_choice == '4':
+            while(True):
+                #help menu
+                print('**************************************************************************')
+                print('*                               Help                                     *')
+                print('*                                                                        *')
+                print('* - To navigate this application, type the number corresponding to the   *')
+                print('*   section of the program you want to navigate to, then press enter.    *')
+                print('*                                                                        *')
+                print('* - You can always return to the previous menu by typing the number      *')
+                print('*   next to the "Exit" option. Or you will enter "e" to exit if there    *')
+                print('*   is only one option.                                                  *')
+                print('*                                                                        *')
+                print('**************************************************************************')
+                ex = input('Enter "e" to exit: ')
+                if ex == 'e':
+                    break
+
+        elif user_choice == '5':
             #exit
             break
 
