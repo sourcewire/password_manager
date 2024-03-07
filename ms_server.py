@@ -1,14 +1,14 @@
 import socket
 from cryptography.fernet import Fernet
-import random
+import random, time
 
 def encrypt_password(password):
     key = Fernet.generate_key()
-    print('should be key: ', key)
+    #print('should be key: ', key)
     cipher = Fernet(key)
     
     encrypted_password = cipher.encrypt(password.encode())
-    print("Encrypted Password:",encrypted_password)
+    #print("Encrypted Password:",encrypted_password)
     return key, encrypted_password
 
 def generatePassword(length):
@@ -33,10 +33,13 @@ def main():
         passwordLength = conn.recv(1024)
         passwordLength = int(passwordLength.decode())
         newPassword = generatePassword(passwordLength)
-        print(newPassword)
+        #print(newPassword)
 
         key, encrypted_password = encrypt_password(newPassword)
+        print('key: ', key)
+        print('enc_password: ', encrypted_password)
         conn.send(key)
+        time.sleep(.5)
         conn.send(encrypted_password)
 
         conn.close()

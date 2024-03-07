@@ -1,4 +1,4 @@
-import socket
+import socket, time
 from cryptography.fernet import Fernet
 
 def decrypt_password(key, encrypted_password):
@@ -15,7 +15,7 @@ def main():
 
     key = client_socket.recv(1024)
     print('should be key: ', key)
-
+    
     encrypted_password = client_socket.recv(1024)
     print('should be encrypted password: ', encrypted_password)
 
