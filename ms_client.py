@@ -1,45 +1,31 @@
 import socket
 from cryptography.fernet import Fernet
-import random
 
-def encrypt_password(password):
-    key = Fernet.generate_key()
-    print('should be key: ', key)
+def decrypt_password(key, encrypted_password):
     cipher = Fernet(key)
-    
-    encrypted_password = cipher.encrypt(password.encode())
-    print("Encrypted Password:",encrypted_password)
-    return key, encrypted_password
-
-def generatePassword(length):
-    asciiArray =[]
-    for i in range(length):
-        random_ascii_value = random.randint(33, 126)
-        asciiArray.append(random_ascii_value)
-    asciiString = ''.join(chr(value) for value in asciiArray)
-    return asciiString
+    decrypted_password = cipher.decrypt(encrypted_password).decode()
+    return decrypted_password
 
 def main():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('localhost', 12345))
-    server_socket.listen(1)
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect(('localhost', 12345))
 
-    print("Server listening on port 12345...")
+    size = input("Enter Password Size: ")
+    client_socket.send(size.encode())
 
-    while True:
-        conn, addr = server_socket.accept()
-        print(f"Connection from {addr}")
+    key = client_socket.recv(1024)
+    print('should be key: ', key)
 
-        passwordLength = conn.recv(1024)
-        passwordLength = int(passwordLength.decode())
-        newPassword = generatePassword(passwordLength)
-        print(newPassword)
+    encrypted_password = client_socket.recv(1024)
+    print('should be encrypted password: ', encrypted_password)
 
-        key, encrypted_password = encrypt_password(newPassword)
-        conn.send(key)
-        conn.send(encrypted_password)
+    print(f"It's working")
 
-        conn.close()
+    decrypted_password = decrypt_password(key, encrypted_password)
+    print(f"Decrypted Password: {decrypted_password}")
+
+    client_socket.close()
 
 if __name__ == "__main__":
     main()
+
