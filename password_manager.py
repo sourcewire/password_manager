@@ -245,7 +245,7 @@ def create_login(website, username, note, length):
         #load logins from logins.json
         try:
             with open('logins.json', 'r') as file:
-                logins = json.load(file)
+                login_arr = json.load(file)
 
         except json.JSONDecodeError:
             #handle empty logins,json or invalid json
@@ -255,11 +255,11 @@ def create_login(website, username, note, length):
     #print(password)
 
     login_entry = {'website': website, 'username': username, 'note': note, 'password': password}
-    logins.append(login_entry)
+    login_arr.append(login_entry)
 
     #save list
     with open('logins.json', 'w') as file:
-        json.dump(logins, file, indent = 4)
+        json.dump(login_arr, file, indent = 4)
 
 
 
@@ -374,12 +374,14 @@ def delete_login(entered_website):
             login_arr[index]['note'] = 'NULL'
             login_arr[index]['password'] = 'NULL'
 
+        else:
+            print('login not found')
 
-    with open('logins.json', 'w') as file:
-        json.dump(login_arr, file)
+        with open('logins.json', 'w') as file:
+            json.dump(login_arr, file)
 
-    file.close()
-    print("Login deleted")
+        file.close()
+        print("Login deleted")
 
 
 #decrypts password using symmetric key cryptography
