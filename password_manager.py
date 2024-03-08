@@ -1,4 +1,6 @@
 import json, getpass, os, sys, pyfiglet, pyperclip
+import socket, time
+from cryptography.fernet import Fernet
 
 
 def password_manager():
@@ -71,7 +73,9 @@ def password_manager():
 
                         note = input("Enter a note (optional): ")
 
-                        create_login(website, username, note)
+                        length = input('Enter the length of your desired password(max 50): ')
+
+                        create_login(website, username, note, length)
                         print("Login added sucessfully")
 
                     elif user_choice2 == '2':
@@ -232,7 +236,7 @@ def login(entered_password):
 
 
 #create new login -- not adding password functionality yet because it requires microservice
-def create_login(website, username, note):
+def create_login(website, username, note, length):
     if not os.path.exists('logins.json'):
         #if logins.json doesnt exit init it with empty list
         login_arr = []
@@ -247,8 +251,10 @@ def create_login(website, username, note):
             #handle empty logins,json or invalid json
             login_arr = []
 
+    password = create_password(length)
+    #print(password)
 
-    login_entry = {'website': website, 'username': username, 'note': note}
+    login_entry = {'website': website, 'username': username, 'note': note, 'password': password}
     logins.append(login_entry)
 
     #save list
@@ -276,6 +282,7 @@ def find_login_by_website(entered_website):
             print("Website: ", entry['website'])
             print("Username: ", entry['username'])
             print("Note: ", entry['note'])
+            print("Password: ", entry['password'])
     
     file.close()
 
@@ -299,6 +306,7 @@ def find_login_by_username(entered_username):
             print("Website: ", entry['website'])
             print("Username: ", entry['username'])
             print("Note: ", entry['note'])
+            print('Password: ', entry['password'])
 
     file.close()
 
@@ -364,6 +372,7 @@ def delete_login(entered_website):
             login_arr[index]['website'] = 'NULL'
             login_arr[index]['username'] = 'NULL'
             login_arr[index]['note'] = 'NULL'
+            login_arr[index]['password'] = 'NULL'
 
 
     with open('logins.json', 'w') as file:
@@ -373,8 +382,29 @@ def delete_login(entered_website):
     print("Login deleted")
 
 
+#decrypts password using symmetric key cryptography
+def decrypt_password(key, encrypted_password):
+    cipher = Fernet(key)
+    decrypted_password = cipher.decrypt(encrypted_password).decode()
+    return decrypted_password
 
 
+#create_password
+#calls microservice with int length, recieves ciphertext, decrypts, stores in json
+def create_password(length):
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)#connect to server
+    client_socket.connect(('localhost', 12345))
+
+    client_socket.send(length.encode())#send length of password to be generated
+
+    key = client_socket.recv(1024)#recieve key
+    encrypted_password = client_socket.recv(1024)#recieve ciphertext
+
+    decrypted_password = decrypt_password(key, encrypted_password)#decrypt password
+
+    client_socket.close()
+
+    return decrypted_password
 
 
 

@@ -1,1 +1,83 @@
-[{"website": "proton.me", "username": "james bond", "note": ""}, {"website": "NULL", "username": "NULL", "note": "NULL"}, {"website": "NULL", "username": "NULL", "note": "NULL"}, {"website": "LOTR.com", "username": "Gandalf", "note": "you shall not pass!!!"}, {"website": "blank", "username": "blank", "note": ""}, {"website": "spystuff.com", "username": "james bond", "note": "shaken not stirred"}, {"website": "mi6.com", "username": "james bond", "note": "license to kill"}, {"website": "subaru.com", "username": "rally dude", "note": "dirt"}, {"website": "nissan.com", "username": "preston", "note": "R34"}, {"website": "pinkfloyd.com", "username": "pigs", "note": ""}, {"website": "mi6.com", "username": "james bond", "note": ""}, {"website": "mi6.com", "username": "james bond", "note": ""}, {"website": "halo.com", "username": "master chief", "note": "117"}]
+[
+    {
+        "website": "proton.me",
+        "username": "james bond",
+        "note": ""
+    },
+    {
+        "website": "NULL",
+        "username": "NULL",
+        "note": "NULL"
+    },
+    {
+        "website": "NULL",
+        "username": "NULL",
+        "note": "NULL"
+    },
+    {
+        "website": "LOTR.com",
+        "username": "Gandalf",
+        "note": "you shall not pass!!!"
+    },
+    {
+        "website": "blank",
+        "username": "blank",
+        "note": ""
+    },
+    {
+        "website": "spystuff.com",
+        "username": "james bond",
+        "note": "shaken not stirred"
+    },
+    {
+        "website": "mi6.com",
+        "username": "james bond",
+        "note": "license to kill"
+    },
+    {
+        "website": "subaru.com",
+        "username": "rally dude",
+        "note": "dirt"
+    },
+    {
+        "website": "nissan.com",
+        "username": "preston",
+        "note": "R34"
+    },
+    {
+        "website": "pinkfloyd.com",
+        "username": "pigs",
+        "note": ""
+    },
+    {
+        "website": "mi6.com",
+        "username": "james bond",
+        "note": ""
+    },
+    {
+        "website": "mi6.com",
+        "username": "james bond",
+        "note": ""
+    },
+    {
+        "website": "halo.com",
+        "username": "master chief",
+        "note": "117"
+    },
+    {
+        "website": "toy-story",
+        "username": "buzz",
+        "note": ""
+    },
+    {
+        "website": "zoom",
+        "username": "you",
+        "note": ""
+    },
+    {
+        "website": "lacroix",
+        "username": "good",
+        "note": "",
+        "password": "VUr[[L3CiQxY"
+    }
+]

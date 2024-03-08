@@ -39,7 +39,7 @@ def main():
         print('key: ', key)
         print('enc_password: ', encrypted_password)
         conn.send(key)
-        time.sleep(.5)
+        time.sleep(.1)
         conn.send(encrypted_password)
 
         conn.close()
