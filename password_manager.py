@@ -109,9 +109,10 @@ def password_manager():
                             print("1.Update website")
                             print("2.Update username")
                             print("3.Update note")
-                            print("4.Exit")
+                            print('4.Update password')
+                            print("5.Exit")
 
-                            user_choice3 = input("CHoose an option from above: ")
+                            user_choice3 = input("Choose an option from above: ")
 
                             if user_choice3 == '1':
                                 entered_website = input("Enter the name of the website for which you want to update login information for: ")
@@ -132,6 +133,11 @@ def password_manager():
                                 update_note(entered_website, new_note)
 
                             elif user_choice3 == '4':
+                                entered_website = input("Enter the name of the website for which you'd like to generate a new password for: ")
+                                length = input('Enter the length of your desired password(max 50): ')
+                                update_password(entered_website, length)
+
+                            elif user_choice3 == '5':
                                 break
 
 
@@ -359,6 +365,24 @@ def update_note(entered_website, new_note):
 
     file.close()
     print("Note updated!")
+
+
+def update_password(entered_website, length):
+
+    new_password = create_password(length)
+
+    with open('logins.json', 'r') as file:
+        login_arr = json.load(file)
+
+    for index, entry in enumerate(login_arr):
+        if entry['website'] == entered_website:
+            login_arr[index]['password'] = new_password
+
+    with open('logins.json', 'w') as file:
+        json.dump(login_arr, file)
+
+    file.close()
+    print("Password updated!")
 
 
 #delete login
