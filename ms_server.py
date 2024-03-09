@@ -4,11 +4,9 @@ import random, time
 
 def encrypt_password(password):
     key = Fernet.generate_key()
-    #print('should be key: ', key)
     cipher = Fernet(key)
     
     encrypted_password = cipher.encrypt(password.encode())
-    #print("Encrypted Password:",encrypted_password)
     return key, encrypted_password
 
 def generatePassword(length):
@@ -24,24 +22,20 @@ def main():
     server_socket.bind(('localhost', 12345))
     server_socket.listen(1)
 
-    print("Server listening on port 12345...")
+    print("Server Running!")
 
     while True:
         conn, addr = server_socket.accept()
-        print(f"Connection from {addr}")
 
         passwordLength = conn.recv(1024)
         passwordLength = int(passwordLength.decode())
         newPassword = generatePassword(passwordLength)
-        #print(newPassword)
 
         key, encrypted_password = encrypt_password(newPassword)
-        print('key: ', key)
-        print('enc_password: ', encrypted_password)
         conn.send(key)
         time.sleep(.1)
         conn.send(encrypted_password)
-
+        print('New password generated and sent!')
         conn.close()
 
 if __name__ == "__main__":
