@@ -35,7 +35,7 @@ def main():
         conn.send(key)
         time.sleep(.1)
         conn.send(encrypted_password)
-        print('New password generated and sent!')
+        print('New password generated, encrypted, and sent!')
         conn.close()
 
 if __name__ == "__main__":

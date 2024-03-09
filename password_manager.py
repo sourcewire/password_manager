@@ -313,7 +313,7 @@ def find_login_by_username(entered_username):
             print("Username: ", entry['username'])
             print("Note: ", entry['note'])
             print('Password: ', entry['password'])
-
+        
     file.close()
 
 
