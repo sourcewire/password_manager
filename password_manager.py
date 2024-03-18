@@ -3,7 +3,7 @@ import socket, time
 from cryptography.fernet import Fernet
 
 
-def password_manager():
+def main():
     welcome = pyfiglet.figlet_format("Welcome to Preston's Password Solutions")
     print(welcome)
 
@@ -31,8 +31,7 @@ def password_manager():
 
         user_choice = input("Choose an option from above: ")
 
-        if user_choice == '1':
-            #register user
+        if user_choice == '1':#register user
             file = 'user_mp.json'
 
             if os.path.exists(file) and os.path.getsize(file) != 0:
@@ -65,8 +64,9 @@ def password_manager():
 
                     user_choice2 = input("Choose an option from above: ")
                     print("\n")
-                    if user_choice2 == '1':
-                        #create login
+
+
+                    if user_choice2 == '1':#create login
                         website = input("Enter the website name: ")
 
                         username = input("Enter your username: ")
@@ -79,8 +79,7 @@ def password_manager():
                         print("Login added sucessfully")
 
                     elif user_choice2 == '2':
-                        while True:
-                            #search logins
+                        while True:#search logins
                             print("1.Search by website name")
                             print("2.Search by username")
                             print("3.Exit")
@@ -98,14 +97,12 @@ def password_manager():
                                 find_login_by_username(entered_username)
                                 break
                             elif user_choice3 == '3':
-                                #sys.exit()
                                 break
 
 
                     
                     elif user_choice2 == '3':
-                        while True:
-                            #update login
+                        while True:#update login
                             print("1.Update website")
                             print("2.Update username")
                             print("3.Update note")
@@ -156,8 +153,7 @@ def password_manager():
                     elif user_choice2 == '5':
                         break
         elif user_choice == '3':
-            while(True):
-                #show user more information
+            while(True):#show user more information
                 print('\n')
                 print('**************************************************************************')
                 print('*                        More Information                                *')
@@ -182,8 +178,7 @@ def password_manager():
 
 
         elif user_choice == '4':
-            while(True):
-                #help menu
+            while(True):#help menu
                 print('**************************************************************************')
                 print('*                               Help                                     *')
                 print('*                                                                        *')
@@ -199,8 +194,7 @@ def password_manager():
                 if ex == 'e':
                     break
 
-        elif user_choice == '5':
-            #exit
+        elif user_choice == '5': #exit
             break
 
 
@@ -212,12 +206,12 @@ def register(master_password):
     if os.path.exists(file_name) and os.path.getsize(file_name) ==0:
         with open(file_name, 'w') as file:
             json.dump(user_mp, file)
-            print("Registration successfule! You can now log in\n")
+            print("Registration successfull! You can now log in\n")
 
     else:
         with open(file_name, 'x') as file:
             json.dump(user_mp, file)
-            print("Registration successfule! You can now log in\n")
+            print("Registration successfull! You can now log in\n")
 
 
 
@@ -241,61 +235,57 @@ def login(entered_password):
 
 
 
-#create new login -- not adding password functionality yet because it requires microservice
 def create_login(website, username, note, length):
-    if not os.path.exists('logins.json'):
-        #if logins.json doesnt exit init it with empty list
+    if not os.path.exists('logins.json'): #if logins.json doesnt exit init it with empty list 
         login_arr = []
 
-    else:
-        #load logins from logins.json
+    else: 
         try:
-            with open('logins.json', 'r') as file:
+            with open('logins.json', 'r') as file: #load logins from logins.json
                 login_arr = json.load(file)
 
-        except json.JSONDecodeError:
-            #handle empty logins,json or invalid json
+        except json.JSONDecodeError: #handle empty logins,json or invalid json 
             login_arr = []
 
     password = create_password(length)
-    #print(password)
 
     login_entry = {'website': website, 'username': username, 'note': note, 'password': password}
     login_arr.append(login_entry)
-
-    #save list
-    with open('logins.json', 'w') as file:
+ 
+    with open('logins.json', 'w') as file: #save list
         json.dump(login_arr, file, indent = 4)
 
 
 
-def find_login_by_website(entered_website):
-    #check is logins.json exists
-    if not os.path.exists('logins.json'):
+def find_login_by_website(entered_website): 
+    if not os.path.exists('logins.json'): #check is logins.json exists
         return None
 
     try:
         with open('logins.json', 'r') as file:
-
             login_arr = json.load(file)
 
     except json.JSONDecodeError:
         login_arr = []
-
-    #loop through logins to find login info mathcing website
-    for entry in login_arr:
+ 
+    found = False
+    for entry in login_arr: #loop through logins to find login info mathcing website
         if entry['website'] == entered_website:
+            found = True
             print("Website: ", entry['website'])
             print("Username: ", entry['username'])
             print("Note: ", entry['note'])
             print("Password: ", entry['password'])
     
+    if found == False:
+        print('Login not found')
+   
     file.close()
 
 
-def find_login_by_username(entered_username):
-    #check if logins.json exists
-    if not os.path.exists('logins.json'):
+
+def find_login_by_username(entered_username): 
+    if not os.path.exists('logins.json'):  #check if logins.json exists
         return None
 
     try:
@@ -305,9 +295,8 @@ def find_login_by_username(entered_username):
 
     except json.JSONDecodeError:
         login_arr = []
-
-    #loop through logins to find login info mathcing website
-    for entry in login_arr:
+ 
+    for entry in login_arr: #loop through logins to find login info mathcing website
         if entry['username'] == entered_username:
             print("Website: ", entry['website'])
             print("Username: ", entry['username'])
@@ -315,16 +304,14 @@ def find_login_by_username(entered_username):
             print('Password: ', entry['password'])
         
     file.close()
-
-
+ 
 
 
 def update_website(entered_website, new_website):
     with open('logins.json', 'r') as file:
         login_arr = json.load(file)
-
-    #use enumerate to get both index and entry
-    for index, entry in enumerate(login_arr):
+ 
+    for index, entry in enumerate(login_arr):  #use enumerate to get both index and entry
         if entry['website'] == entered_website:
             login_arr[index]['website'] = new_website
 
@@ -367,6 +354,7 @@ def update_note(entered_website, new_note):
     print("Note updated!")
 
 
+
 def update_password(entered_website, length):
 
     new_password = create_password(length)
@@ -385,37 +373,40 @@ def update_password(entered_website, length):
     print("Password updated!")
 
 
-#delete login
+
 def delete_login(entered_website):
     with open('logins.json', 'r') as file:
         login_arr = json.load(file)
 
-    #use enumerate to get both index and entry
-    for index, entry in enumerate(login_arr):
+    found = False
+    for index, entry in enumerate(login_arr):  #use enumerate to get both index and entry
         if entry['website'] == entered_website:
+            found = True
             login_arr[index]['website'] = 'NULL'
             login_arr[index]['username'] = 'NULL'
             login_arr[index]['note'] = 'NULL'
             login_arr[index]['password'] = 'NULL'
 
-        else:
-            print('login not found')
 
-        with open('logins.json', 'w') as file:
-            json.dump(login_arr, file)
+            with open('logins.json', 'w') as file:
+                json.dump(login_arr, file)
 
-        file.close()
+    if found == False:
+        print('login not found')
+    else:
         print("Login deleted")
 
+        file.close()
+        
 
-#decrypts password using symmetric key cryptography
+
 def decrypt_password(key, encrypted_password):
     cipher = Fernet(key)
     decrypted_password = cipher.decrypt(encrypted_password).decode()
     return decrypted_password
 
 
-#create_password
+
 #calls microservice with int length, recieves ciphertext, decrypts, stores in json
 def create_password(length):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)#connect to server
@@ -434,6 +425,5 @@ def create_password(length):
 
 
 
-
 if __name__ == '__main__':
-    password_manager()
+    main()
